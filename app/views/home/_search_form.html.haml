@@ -1,0 +1,25 @@
+%div{id: "wrapper_#{id}"}
+  =form_tag find_flights_path, method: :get, id: "form_#{id}", class: "search_form" do
+    = label_tag :from_search_field, 'From', class: "sr-only"
+    = text_field_tag :from_search_field, nil, placeholder: "From"
+    = hidden_field_tag :from, nil, value: "SYD"
+    = label_tag :to_search_field, 'To', class: "sr-only"
+    = text_field_tag :to_search_field, nil, placeholder: "To"
+    = hidden_field_tag :to, nil, value: "JFK"
+    = label_tag :date, nil, class: "sr-only"
+    = text_field_tag :date, nil, data: {provide: "datepicker", date_format: "yyyy-mm-dd"}, placeholder: "Date, e.g. 2017-09-05"
+    = submit_tag "Search",  data: {disable_with: false, form_id: id}, class: "search_button"
+  .loading-please-wait
+    Looking for your flights. Please wait.
+  .no-flights-found
+    Unfortunately, we couldn't find any flights matching your criteria.
+  %ul.flights{id: "flights_#{id}"}
+    .flight#dummy
+      .flight-airline 
+      .flight-start
+      .flight-length
+      .flight-end
+      .flight-price
+      .flight-plane-model
+
+

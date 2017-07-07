@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get 'airlines', to: 'airlines#all', as: "list_airlines"
+  get 'airports', to: 'airports#find', as: "find_airports"
+  get 'search', to: 'flights#find', as: "find_flights"
+  root to: 'home#home'
 end

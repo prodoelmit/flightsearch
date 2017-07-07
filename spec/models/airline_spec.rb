@@ -8,13 +8,13 @@ describe Airline do
   it { is_expected.to respond_to(:name) }
 
   it "should be constructable with hash" do
-    obj = { code: "ZIA",
-             name: "Zhukovsky international airport" 
+    obj = { "code" => "ZIA",
+             "name" => "Zhukovsky international airport" 
     }
 
     a = Airline.new(obj)
-    expect(a.code).to be == obj[:code]
-    expect(a.name).to be == obj[:name]
+    expect(a.code).to be == obj["code"]
+    expect(a.name).to be == obj["name"]
 
   end
 
@@ -22,9 +22,9 @@ describe Airline do
     c1 = "ZIA"
     c2 = "DME"
     c_airline = "SU"
-    ap1 = Airport.new({ airportCode: c1 })
-    ap2 = Airport.new({ airportCode: c2 })
-    airline = Airline.new({ code: c_airline })
+    ap1 = Airport.new({ "airportCode" => c1 })
+    ap2 = Airport.new({ "airportCode" => c2 })
+    airline = Airline.new({ "code" => c_airline })
     date = Date.new(1993,06,07)
     query_url = airline.flights_query_url(date: date, from: ap1, to: ap2)
     expect(query_url).to be == URI::HTTP.build(host: "node.locomote.com",
@@ -34,6 +34,24 @@ describe Airline do
                             to: c2
                     }.to_query
                    )
+    query_url = airline.flights_query_url(date: date, from: c1, to: c2)
+    expect(query_url).to be == URI::HTTP.build(host: "node.locomote.com",
+                    path: "/code-task/flight_search/#{c_airline}",
+                    query: {date: date,
+                            from: c1,
+                            to: c2
+                    }.to_query
+                   )
+  end
+
+  it "should have be possible to fetch all Airlines" do
+    expect(Airline).to respond_to(:all)
+
+    airlines = Airline.all
+    expect(airlines.class).to be == Array
+    expect(airlines.empty?).to be false
+    expect(airlines.first.class).to be == Airline
+
   end
 
 end
