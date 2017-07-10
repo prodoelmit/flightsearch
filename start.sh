@@ -2,6 +2,7 @@
 cd "$(dirname "$0")"
 export RAILS_ENV=production
 export GEM_HOME="$(pwd)/vendor"
+bundle="./vendor/gems/bundler-1.15.1/exe/bundle"
 
 if [ "$1" = "--with-install" ]; then
 
@@ -32,9 +33,9 @@ fi
 
 
 
-export SECRET_KEY_BASE=$(bundle exec rake secret)
-bundle exec rake assets:precompile
-bundle exec rails server
+export SECRET_KEY_BASE=$($bundle exec rake secret)
+$bundle exec rake assets:precompile
+$bundle exec rails server
 
 
 
