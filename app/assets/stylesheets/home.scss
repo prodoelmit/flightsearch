@@ -106,6 +106,7 @@ ul.flights {
   width: 100;
   background-color: rgba(106, 183, 191, 0.46);
   padding: 8px;
+  margin-top: 1em;
 }
 
 .flight-airline {
@@ -158,6 +159,7 @@ form {
   display: flex;
   flex-direction: row;
   &>* {
+    flex-grow: 1;
     margin: 2px;
   }
 }

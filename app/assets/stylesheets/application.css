@@ -13,6 +13,6 @@
  *= require_tree .
  *= require bootstrap-datepicker
  *= require selectize
- *= require selectize.default
+ *= require selectize.bootstrap3
  *= require_self
  */

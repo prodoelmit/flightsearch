@@ -19,7 +19,6 @@ formatDate = (d) ->
 
   return "#{d}/#{month} #{h}:#{m} UTC#{tz_sign}#{tz_h}:#{tz_m}"
 
-
 formatLength = (l) ->
   h = Math.floor(l / 60)
   m = String(l - 60*h)
@@ -29,10 +28,6 @@ formatLength = (l) ->
   while (m.lengtm < 2)
     m = "0" + m
   return "#{h}:#{m}"
-
-
-
-
 
 prepareFlight = (f) ->
   div = $(".flight#dummy").clone(true).first()
@@ -46,18 +41,11 @@ prepareFlight = (f) ->
   $(div).find(".flight-plane-model").text(f["plane"]["shortName"])
   return div
 
-
-
-$(document).ready ->
-  $(".no-flights-found").hide()
-  $(".loading-please-wait").hide()
-  $(".search_button").click (e)->
+processSearchButton = (e)->
     e.preventDefault()
-    console.log("Hi")
     t = e.target
 
     formId = $(t).attr("data-form-id")
-    console.log formId
     wrapper = $("#wrapper_#{formId}")
     form = $(wrapper).find(".search_form")
     url = form.attr("action")
@@ -67,31 +55,74 @@ $(document).ready ->
     to = $(form).find("#to").val()
     date = $(form).find("#date").val()
 
+    if (!from.length || !to.length || !date.length)
+      $(wrapper).find(".no-flights-found").hide()
+      $(wrapper).find(".loading-please-wait").hide()
+      $(wrapper).find(".wrong-input").show()
+      return
+
     $.getJSON url, {from: from, to: to, date: date}
       .done (obj) ->
-        console.log(obj)
         if obj.length == 0
+          $(wrapper).find(".wrong-input").hide()
           $(wrapper).find(".no-flights-found").show()
           $(wrapper).find(".loading-please-wait").hide()
         for f in obj
+          $(wrapper).find(".wrong-input").hide()
           $(wrapper).find(".no-flights-found").hide()
           $(wrapper).find(".loading-please-wait").hide()
           div = prepareFlight f
           $(flights).append(div)
       .fail (obj) ->
-          console.log(obj)
+          $(wrapper).find(".wrong-input").hide()
           $(wrapper).find(".no-flights-found").show()
           $(wrapper).find(".loading-please-wait").hide()
     
+    $(wrapper).find(".wrong-input").hide()
     $(wrapper).find(".no-flights-found").hide()
     $(wrapper).find(".loading-please-wait").show()
-
-
-
     return false
 
+loadAirports = (q, callback) ->
+  
+  if (q.length < 3)
+    return callback([])
+
+  $.getJSON("airports", {query: q})
+    .fail ->
+      callback()
+    .done (res) ->
+      callback(res.slice(0,10))
 
 
+  return true
 
+renderAirport = (item, escape) ->
+  a = $("<div class='airport'></div>")
+  $(a).append("<div class='code'>" + item.code + "</div>")
+  $(a).append("<div class='name'>" + item.name + "</div>")
+  $(a).append("<div class='cityName'>" + item.cityName + "</div>")
+  return $(a)
 
+$(document).ready ->
+  $(".no-flights-found").hide()
+  $(".loading-please-wait").hide()
+  $(".wrong-input").hide()
+  $(".search_button").click processSearchButton
+  $(".airport_search_field").each (i, f) ->
+    $(f).selectize({
+      options: [],
+      create: false,
+      load: (q, c) ->
+        loadAirports(q,c)
+      render: {option: renderAirport},
+      valueField: "code",
+      labelField: "name",
+      searchField: ["name", "code", "cityName"],
+      persist: false,
+      selectOnTab: true,
+      onChange: (v) ->
+        $(f).
+        console.log(v)
 
+    })

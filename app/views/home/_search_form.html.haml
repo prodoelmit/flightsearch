@@ -1,20 +1,20 @@
 %div.wrapper.flexbox-parent{id: "wrapper_#{id}"}
   .form-wrapper.flexbox-item.header
     %h3= h3
-    =form_tag find_flights_path, method: :get, id: "form_#{id}", class: "search_form" do
-      = label_tag :from_search_field, 'From', class: "sr-only"
-      = text_field_tag :from_search_field, nil, placeholder: "From"
-      = hidden_field_tag :from, nil, value: "SYD"
-      = label_tag :to_search_field, 'To', class: "sr-only"
-      = text_field_tag :to_search_field, nil, placeholder: "To"
-      = hidden_field_tag :to, nil, value: "JFK"
+    =form_tag find_flights_path, method: :get, id: "form_#{id}", class: "search_form form-inline " do
+      = label_tag :from, 'From', class: "sr-only"
+      = select_tag :from, nil, placeholder: "From", class: "airport_search_field"
+      = label_tag :to, 'To', class: "sr-only"
+      = select_tag :to, nil, placeholder: "To", class: "airport_search_field"
       = label_tag :date, nil, class: "sr-only"
-      = text_field_tag :date, nil, data: {provide: "datepicker", date_format: "yyyy-mm-dd"}, placeholder: "Date, e.g. 2017-09-05"
-      = submit_tag "Search",  data: {disable_with: false, form_id: id}, class: "search_button"
+      = text_field_tag :date, nil, data: {provide: "datepicker", date_format: "yyyy-mm-dd"}, placeholder: "Date, e.g. 2017-09-05", class: "form-control"
+      = submit_tag "Search",  data: {disable_with: false, form_id: id}, class: "search_button btn btn-default form-control"
     .loading-please-wait
       Looking for your flights. Please wait.
     .no-flights-found
       Unfortunately, we couldn't find any flights matching your criteria.
+    .wrong-input
+      Something wrong. Maybe you haven't entered airports or date? 
   .flights-wrapper.flexbox-item.fill-area.content.flexbox-item-grow
     %ul.flights.fill-area-content.flexbox-item-grow{id: "flights_#{id}"}
       .flight#dummy
