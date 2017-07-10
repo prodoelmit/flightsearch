@@ -1,6 +1,4 @@
-.panel
-  %h3 Find flights
-  = render "search_form", id: "normal"
+.bodyWrapper
+  = render "search_form", id: "normal", h3: "Find flights"
 
-  %h3 Find return flights
-  = render "search_form", id: "return"
+  = render "search_form", id: "return", h3: "Find return flights"

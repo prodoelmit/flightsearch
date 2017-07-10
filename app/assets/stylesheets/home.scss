@@ -2,7 +2,169 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+html, body {
+  height: 100%;
+  padding: 0;
+  margin:0;
+  width: 100%;
+  overflow: hidden;
+}
+
 #dummy {
   display: none
 }
+
+
+.bodyWrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
+.wrapper {
+  flex-grow: 1;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+
+//.form-wrapper, .flights-wrapper {
+  //padding: 8px;
+//}
+//
+//.flights-wrapper {
+  //display: flex;
+  //flex-direction: row;
+  //justify-content: flex-start;
+  //align-items: stretch;
+  //align-content: stretch;
+//}
+//
+//
+ul.flights {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+
+.flexbox-parent
+{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch; /* Extra space in Cross Axis */
+            
+}
+
+.flexbox-item
+{
+    padding: 8px;
+}
+.flexbox-item-grow
+{
+    flex: 1; /* same as flex: 1 1 auto; */
+}
+
+.flexbox-item.header
+{
+}
+.flexbox-item.footer
+{
+}
+.flexbox-item.content
+{
+}
+
+.fill-area
+{
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch; /* Extra space in Cross Axis */
+    
+}
+.fill-area-content
+{
+    
+    /* Needed for when the area gets squished too far and there is content that can't be displayed */
+    overflow: auto; 
+}
+
+.flight {
+  display: block;
+  width: 100;
+  background-color: rgba(106, 183, 191, 0.46);
+  padding: 8px;
+}
+
+.flight-airline {
+  display: block;
+  font-size: 1.4em;
+  float: left;
+}
+
+.flight-plane-model {
+  display: block;
+  float: right;
+  font-size: 1.4em;
+}
+
+.flight-time-row {
+  padding-top: 1em;
+  font-size: 1.3em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  &>.flight-length {
+    text-align: center;
+  }
+
+  &>.flight-arrow {
+    flex-grow: 1;
+    height: 1em;
+    text-align: center;
+    content: "\27F6";
+  }
+
+  &>.flight-price
+  {
+    padding-left: 1em;
+  }
+
+  
+
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+
+form {
+  display: flex;
+  flex-direction: row;
+  &>* {
+    margin: 2px;
+  }
+}
+
+
+.search_button {
+  flex-grow: 1;
+}
+
 

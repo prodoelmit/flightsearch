@@ -1,25 +1,32 @@
-%div{id: "wrapper_#{id}"}
-  =form_tag find_flights_path, method: :get, id: "form_#{id}", class: "search_form" do
-    = label_tag :from_search_field, 'From', class: "sr-only"
-    = text_field_tag :from_search_field, nil, placeholder: "From"
-    = hidden_field_tag :from, nil, value: "SYD"
-    = label_tag :to_search_field, 'To', class: "sr-only"
-    = text_field_tag :to_search_field, nil, placeholder: "To"
-    = hidden_field_tag :to, nil, value: "JFK"
-    = label_tag :date, nil, class: "sr-only"
-    = text_field_tag :date, nil, data: {provide: "datepicker", date_format: "yyyy-mm-dd"}, placeholder: "Date, e.g. 2017-09-05"
-    = submit_tag "Search",  data: {disable_with: false, form_id: id}, class: "search_button"
-  .loading-please-wait
-    Looking for your flights. Please wait.
-  .no-flights-found
-    Unfortunately, we couldn't find any flights matching your criteria.
-  %ul.flights{id: "flights_#{id}"}
-    .flight#dummy
-      .flight-airline 
-      .flight-start
-      .flight-length
-      .flight-end
-      .flight-price
-      .flight-plane-model
+%div.wrapper.flexbox-parent{id: "wrapper_#{id}"}
+  .form-wrapper.flexbox-item.header
+    %h3= h3
+    =form_tag find_flights_path, method: :get, id: "form_#{id}", class: "search_form" do
+      = label_tag :from_search_field, 'From', class: "sr-only"
+      = text_field_tag :from_search_field, nil, placeholder: "From"
+      = hidden_field_tag :from, nil, value: "SYD"
+      = label_tag :to_search_field, 'To', class: "sr-only"
+      = text_field_tag :to_search_field, nil, placeholder: "To"
+      = hidden_field_tag :to, nil, value: "JFK"
+      = label_tag :date, nil, class: "sr-only"
+      = text_field_tag :date, nil, data: {provide: "datepicker", date_format: "yyyy-mm-dd"}, placeholder: "Date, e.g. 2017-09-05"
+      = submit_tag "Search",  data: {disable_with: false, form_id: id}, class: "search_button"
+    .loading-please-wait
+      Looking for your flights. Please wait.
+    .no-flights-found
+      Unfortunately, we couldn't find any flights matching your criteria.
+  .flights-wrapper.flexbox-item.fill-area.content.flexbox-item-grow
+    %ul.flights.fill-area-content.flexbox-item-grow{id: "flights_#{id}"}
+      .flight#dummy
+        .flight-airline Ural airlines
+        .flight-plane-model Boeing 737XB
+        .flight-time-row
+          .flight-start 23/01 23:00
+          .flight-arrow ⟶ 
+          .col
+            .flight-length 13:57
+            .flight-price $565
+          .flight-arrow  ⟶
+          .flight-end 24/01 09:37
 
 

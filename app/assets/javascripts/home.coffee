@@ -17,12 +17,17 @@ formatDate = (d) ->
   tz_h = result[8]
   tz_m = result[9]
 
-  return "#{y}/#{month}/#{d} #{h}:#{m} UTC#{tz_sign}#{tz_h}:#{tz_m}"
+  return "#{d}/#{month} #{h}:#{m} UTC#{tz_sign}#{tz_h}:#{tz_m}"
 
 
 formatLength = (l) ->
   h = Math.floor(l / 60)
-  m = l - 60*h
+  m = String(l - 60*h)
+  h = String(h)
+  while (h.length < 2)
+    h = "0" + h
+  while (m.lengtm < 2)
+    m = "0" + m
   return "#{h}:#{m}"
 
 
