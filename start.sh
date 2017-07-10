@@ -22,10 +22,13 @@ fi
 
 
 export GEM_HOME="$(pwd)/vendor"
+export RAILS_ENV=production
 bundler=$(gem install bundler --no-ri --no-rdoc | grep -o "bundler-[0-9\.]\+")
 echo $bundler
 ./vendor/gems/$bundler/exe/bundle install --path vendor/bundle --without development test
-rails server -p 3000
+export SECRET_KEY_BASE=$(bundle exec rake secret)
+bundle exec rake assets:precompile
+bundle exec rails server
 
 
 
